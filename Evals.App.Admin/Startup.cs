@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Evals.App.Infrastructure.Cache;
 using Microsoft.AspNetCore.Authorization;
 using Evals.App.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evals.App.Admin
 {
@@ -27,7 +28,6 @@ namespace Evals.App.Admin
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
@@ -35,25 +35,21 @@ namespace Evals.App.Admin
 
             services.Configure<CacheManagerOptions>(option =>
             {
-
+                option.Build(Configuration.GetSection("Cache").GetSection("Redis"));
             });
-
-
+            
             services.Configure<AuthorizationOptions>(options =>
             {
-                options.AddPolicy("AdminAuth", policy => policy.RequireClaim("Action", "ManageStore"));
-                
+                options.AddPolicy("AdminAuth", policy => policy.RequireClaim("A"));
             });
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>(option =>
+            services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>((service, option) =>
             {
-                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                option.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnectionString"));                
             });
 
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));

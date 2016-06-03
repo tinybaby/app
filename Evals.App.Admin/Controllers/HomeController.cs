@@ -8,7 +8,6 @@ using Evals.App.Web.Framework.Authorization;
 
 namespace Evals.App.Admin.Controllers
 {
-    [AdminAuth]
     public class HomeController : Controller
     {
         public IActionResult Index()
