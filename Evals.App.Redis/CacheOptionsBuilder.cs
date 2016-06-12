@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Evals.App.Infrastructure.Cache
+namespace Evals.App.Redis
 {
-    public class RelativeExpiration
+    public class CacheOptionsBuilder
     {
-         
+
     }
 }

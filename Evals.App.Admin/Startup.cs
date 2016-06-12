@@ -11,6 +11,7 @@ using Evals.App.Infrastructure.Cache;
 using Microsoft.AspNetCore.Authorization;
 using Evals.App.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Redis;
 
 namespace Evals.App.Admin
 {
@@ -33,11 +34,7 @@ namespace Evals.App.Admin
             // Add framework services.
             services.AddMvc();
 
-            services.Configure<CacheManagerOptions>(option =>
-            {
-                option.Build(Configuration.GetSection("Cache").GetSection("Redis"));
-            });
-            
+
             services.Configure<AuthorizationOptions>(options =>
             {
                 options.AddPolicy("AdminAuth", policy => policy.RequireClaim("A"));
@@ -45,8 +42,14 @@ namespace Evals.App.Admin
 
             services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>((service, option) =>
             {
-                option.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnectionString"));                
+                option.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnectionString"));
             });
+
+            services.AddCache().AddDistributedRedisCache(option =>
+            {
+                option.Configuration = Configuration.GetSection("Redis")["ConnectionString"];
+            });
+
 
 
         }

@@ -14,5 +14,7 @@ namespace Evals.App.Infrastructure.Exception
                 throw new ArgumentNullException($"参数{nameof(action)}不能为空");
 
         }
+
+
     }
 }

@@ -23,7 +23,8 @@
     "Evals.App.EntityFramework": "1.0.0-*",
     "Evals.App.Infrastructure": "1.0.0-*",
     "Evals.App.Services": "1.0.0-*",
-    "Evals.App.Web.Framework": "1.0.0-*"
+    "Evals.App.Web.Framework": "1.0.0-*",
+    "Evals.App.Redis": "1.0.0-*"
   },
 
   "tools": {

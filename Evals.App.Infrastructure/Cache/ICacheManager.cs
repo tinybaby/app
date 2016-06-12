@@ -23,7 +23,7 @@ namespace Evals.App.Infrastructure.Cache
         /// <param name="absoluteTimeout">绝对超时时间</param>
         /// <param name="relativeTimeout">相对超时时间</param>
         /// <param name="entity">缓存值</param>
-        void Save<T>(string entityKey, AbsoluteExpiration absoluteTimeout, RelativeExpiration relativeTimeout, T entity);
+        void Save<T>(string entityKey, DateTimeOffset? absoluteExpiration, TimeSpan? slidingExpiration, T entity);
 
         /// <summary>
         /// 获取缓存内容
@@ -33,6 +33,27 @@ namespace Evals.App.Infrastructure.Cache
         /// <returns>缓存值</returns>
         T Get<T>(string entityKey);
 
+
+
+        /// <summary>
+        /// 缓存数据
+        /// </summary>
+        /// <typeparam name="T">值类型</typeparam>
+        /// <param name="entityKey">缓存键</param>
+        /// <param name="entity">缓存值</param>
+        Task SaveAsync<T>(string entityKey, T entity);
+
+
+        /// <summary>
+        /// 缓存数据
+        /// </summary>
+        /// <typeparam name="T">值类型</typeparam>
+        /// <param name="entityKey">缓存键</param>
+        /// <param name="absoluteTimeout">绝对超时时间</param>
+        /// <param name="relativeTimeout">相对超时时间</param>
+        /// <param name="entity">缓存值</param>
+        Task SaveAsync<T>(string entityKey, DateTimeOffset? absoluteExpiration, TimeSpan? slidingExpiration, T entity);
+        
 
 
     }
