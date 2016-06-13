@@ -5,6 +5,7 @@ using System;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -37,6 +38,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
 
             return services;
+        }
+
+        public static string GetRedisCacheConnectionString(this IConfiguration config, string name)
+        {
+            return config.GetSection("Redis")[name];
         }
     }
 }

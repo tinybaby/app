@@ -25,8 +25,9 @@
     "Evals.App.Services": "1.0.0-*",
     "Evals.App.Web.Framework": "1.0.0-*",
     "Evals.App.Redis": "1.0.0-*"
-  },
 
+  },
+  
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview1-final",

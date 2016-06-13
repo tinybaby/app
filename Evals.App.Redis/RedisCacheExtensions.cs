@@ -13,10 +13,9 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class RedisCacheExtensions
     {
-        public static IServiceCollection AddCache(this IServiceCollection service, Action<CacheOptionsBuilder> builder)
+        public static IServiceCollection AddCache(this IServiceCollection service)
         {
-            service.AddSingleton<ICacheManager, CacheManager>();
-            
+            service.AddSingleton<ICacheManager, CacheManager>();            
             return service;
         }
     }

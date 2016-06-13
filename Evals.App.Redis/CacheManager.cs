@@ -16,9 +16,9 @@ namespace Evals.App.Redis
         private IDistributedCache _distributedCache;
         private Encoding _encoding = Encoding.UTF8;
 
-        public CacheManager(IOptions<RedisCacheOptions> options)
+        public CacheManager(IDistributedCache distributedCache)
         {
-            _distributedCache = new RedisCache(options);
+            _distributedCache = distributedCache;
         }
 
         public T Get<T>(string entityKey)

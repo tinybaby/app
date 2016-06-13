@@ -40,14 +40,16 @@ namespace Evals.App.Admin
                 options.AddPolicy("AdminAuth", policy => policy.RequireClaim("A"));
             });
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>((service, option) =>
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<AppDbContext>((service, option) =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnectionString"));
             });
 
-            services.AddCache().AddDistributedRedisCache(option =>
+            services.AddCache()
+                .AddDistributedRedisCache(option =>
             {
-                option.Configuration = Configuration.GetSection("Redis")["ConnectionString"];
+                option.Configuration = Configuration.GetRedisCacheConnectionString("ConnectionString");
             });
 
 
